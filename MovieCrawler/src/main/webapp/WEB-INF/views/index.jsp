@@ -22,22 +22,26 @@
 				<td>출연자</td>
 				<td>네이버 평점</td>
 				<td>다음 평점</td>
+				<td>네이버 코드</td>
+				<td>다음 코드</td>
 			</tr>
 		</thead>
 		<tbody>
 			<c:forEach items="${rankList}" var="one">
 				<tr>
 					<td>${one.rank}</td>
-					<td><img src="${one.imgSrc}"></td>
+					<td><img src="${one.imgsrc}"></td>
 					<td>${one.movie}</td>
 					<td>${one.type}</td>
-					<td>${one.openDate}</td>
+					<td>${one.opendate}</td>
 					<td>${one.bookingrate}</td>
-					<td>${one.runTime}</td>
+					<td>${one.runtime}</td>
 					<td>${one.director}</td>
 					<td>${one.actor}</td>
-					<td>${one.naverScore}</td>
-					<td>${one.daumScore}</td>
+					<td>${one.naverscore}</td>
+					<td>${one.daumscore}</td>
+					<td>${one.navercode}</td>
+					<td>${one.daumcode}</td>
 				</tr>
 			</c:forEach>
 		</tbody>

@@ -4,21 +4,30 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.movie.domain.movie.MovieDTO;
+import com.movie.persistence.movie.MovieDAO;
 
 
 
 @Service
 public class MovieServiceImpl implements MovieService {
 
+	@Inject
+	MovieDAO mDao;
+	
 	@Override
+	@Transactional
 	public List<MovieDTO> ticketRank() throws IOException {
-
+		// 비즈니스로직 : 네이버, 다음 영화정보 크롤링 및 DB에 저장
+		
 		List<MovieDTO> rankList = new ArrayList<>();
 
 		String naverRankUrl = "https://movie.naver.com/movie/running/current.nhn?order=reserve";
@@ -33,6 +42,10 @@ public class MovieServiceImpl implements MovieService {
 		// 다음 영화 실시간 예매 순의 1위 ~ 10위까지 수집 및 추출
 		Document daumDoc = Jsoup.connect(daumRankUrl).get();
 		Elements daumMovie = daumDoc.select(".tit_join a");
+		
+		// DB에 있는 기존 영화정보데이터를 삭제
+		mDao.deleteAll();
+		
 		
 		// 1~10위까지 영화정보 추출
 		for (int i = 0; i < 10; i++) {
@@ -68,10 +81,26 @@ public class MovieServiceImpl implements MovieService {
 			
 			MovieDTO mDto = new MovieDTO(rank, movie, imgSrc, type, openDate, bookingrate, runTime, director, actor, naverCode, naverScore, daumCode, daumScore);
 			rankList.add(mDto);
+			
+			// DB에서 실시간영화예매순위 1~10위까지의 데이터를 저장
+			mDao.ticketRankWrite(mDto);
 		}
-		for (MovieDTO movie : rankList) {
-			System.out.println(movie.toString());
-		}
+//		for (MovieDTO movie : rankList) {
+//			System.out.println(movie.toString());
+//		}
+		
+	
+		
+		return rankList;
+	}
+
+	@Override
+	public List<MovieDTO> movieList() {
+		
+		// DB에 저장되어 있는 실시간영화예매순위 정보를 
+		// 가져와서 View단으로 전송
+		List<MovieDTO> rankList = mDao.movieList();
+		
 		
 		return rankList;
 	}
