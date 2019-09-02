@@ -1,50 +1,79 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="include/include.jsp"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<c:set var="rootPath" value="${pageContext.request.contextPath}" />
+
 <!DOCTYPE html>
+
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" type="text/css"
+	href="${rootPath}/resources/css/main.css?ver=2019080701">
+<link rel="stylesheet" type="text/css"
+	href="${rootPath}/resources/css/album.css?ver=2019090207">
 </head>
 <body>
-	<table>
-		<thead>
-			<tr>
-				<td>Rank</td>
-				<td>img</td>
-				<td>제목</td>
-				<td>장르</td>
-				<td>개봉일</td>
-				<td>예매율</td>
-				<td>상영시간</td>
-				<td>감독</td>
-				<td>출연자</td>
-				<td>네이버 평점</td>
-				<td>다음 평점</td>
-				<td>네이버 코드</td>
-				<td>다음 코드</td>
-			</tr>
-		</thead>
-		<tbody>
-			<c:forEach items="${rankList}" var="one">
-				<tr>
-					<td>${one.rank}</td>
-					<td><img src="${one.imgsrc}"></td>
-					<td>${one.movie}</td>
-					<td>${one.type}</td>
-					<td>${one.opendate}</td>
-					<td>${one.bookingrate}</td>
-					<td>${one.runtime}</td>
-					<td>${one.director}</td>
-					<td>${one.actor}</td>
-					<td>${one.naverscore}</td>
-					<td>${one.daumscore}</td>
-					<td>${one.navercode}</td>
-					<td>${one.daumcode}</td>
-				</tr>
-			</c:forEach>
-		</tbody>
-	</table>
+	<%@ include file="/WEB-INF/views/include/include-header.jsp"%>
+	<h1>실시간 순위</h1>
+	<div class="movie_sort">
+		<span><a href="${path}/sort?sort=booking">예매순</a></span>
+		<span>|</span>
+		<span><a href="${path}/sort?sort=score">평점순</a></span>
+		<span>|</span>
+		<span><a href="${path}/sort?sort=date">개봉일순</a></span>
+	</div>
+	<article class="grid-container">
+	
+
+		<c:forEach items="${rankList}" var="one">
+
+			<div class="bz-card">
+
+				<div class="bz-card-content">${one.rank}위</div>
+
+				<div class="movie-card">
+					<img src="${one.imgsrc}">
+					<div class="movie-card-ty">
+						<div class="movie-card-ay">
+							<div class="movie-card-ta">개요</div>
+							<div>${one.type}</div>
+							&nbsp;
+							<div>${one.runtime}분</div>
+							&nbsp;
+							<div>${one.opendate}</div>
+						</div>
+						<div class="movie-card-ay">
+							<div class="movie-card-ta">감독</div>
+							<div>${one.director}</div>
+						</div>
+						<div class="movie-card-ay">
+							<div class="movie-card-ta">출연</div>
+							<div>${one.actor}</div>
+						</div>
+						<div class="movie-card-ay">
+							<div class="movie-card-ta">예매율</div>
+							<div>${one.bookingrate}</div>
+						</div>
+						<div class="movie-card-ay">
+							<div class="movie-card-ta">평점</div>
+							<div>네이버 : ${one.naverscore} 다음 : ${one.daumscore}</div>
+						</div>
+						<div class="movie-card-ay">
+							<div class="movie-card-ta">코드</div>
+							<div>네이버 : ${one.navercode} 다음 : ${one.daumcode}</div>
+						</div>
+					</div>
+
+				</div>
+
+				<div class="bz-card-content">${one.movie}</div>
+			</div>
+
+		</c:forEach>
+
+	</article>
 </body>
 </html>

@@ -95,14 +95,12 @@ public class MovieServiceImpl implements MovieService {
 	}
 
 	@Override
-	public List<MovieDTO> movieList() {
+	public List<MovieDTO> movieList(String sort) {
 		
 		// DB에 저장되어 있는 실시간영화예매순위 정보를 
 		// 가져와서 View단으로 전송
-		List<MovieDTO> rankList = mDao.movieList();
 		
-		
-		return rankList;
+		return mDao.movieList(sort);
 	}
 
 }

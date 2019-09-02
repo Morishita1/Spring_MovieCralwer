@@ -12,5 +12,5 @@ public interface MovieService {
 	public List<MovieDTO> ticketRank() throws IOException;
 	
 	// 실시간영화순위정보를 조회
-	public List<MovieDTO> movieList();
+	public List<MovieDTO> movieList(String sort);
 }

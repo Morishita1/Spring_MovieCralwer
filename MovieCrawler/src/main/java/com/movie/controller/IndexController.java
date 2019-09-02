@@ -7,7 +7,9 @@ import javax.inject.Inject;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.movie.domain.movie.MovieDTO;
 import com.movie.service.movie.MovieService;
@@ -21,17 +23,20 @@ public class IndexController {
 	@RequestMapping("/")
 	public String index(Model model) throws IOException {
 		
-		
-		
-		// 1. 데디터 수집 2. DB에 저장
-		mSercice.ticketRank();
-		// 3. DB에서 수집한 데이터 조회
-		List<MovieDTO> rankList = mSercice.movieList();
 		// 4. 수집한 데이터 View단으로 전송
-		model.addAttribute("rankList",rankList);
+		String sort = "booking";
+		model.addAttribute("rankList",mSercice.movieList(sort));
+		model.addAttribute("sort",sort);
 		// 5. View단 이동
 		return "index";
 	}
 	
+	
+	@GetMapping(value = "/sort")
+	public String sortList(@RequestParam(defaultValue = "booktng") String sort, Model model) {
+		model.addAttribute("rankList",mSercice.movieList(sort));
+		model.addAttribute("sort",sort);
+		return "index";
+	}
 	
 }
