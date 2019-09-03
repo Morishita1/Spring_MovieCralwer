@@ -23,7 +23,14 @@ header h2 {
     text-align: center;
 }
 
+nav.main {
+	width:1525px;
+	position: fixed;
+	top: 0;
+}
+
 nav {
+	
     margin:0;
     padding:0;
     background-color: #f0fff0;
@@ -31,6 +38,7 @@ nav {
     box-sizing: border-box;
 }
 ul.main-menu {
+	
     display: flex;
     list-style: none;
     margin:0;

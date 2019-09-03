@@ -10,14 +10,19 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <link rel="stylesheet" type="text/css"
-	href="${rootPath}/resources/css/main.css?ver=2019080701">
+	href="${rootPath}/resources/css/main.css?ver=2019090301">
 <link rel="stylesheet" type="text/css"
-	href="${rootPath}/resources/css/album.css?ver=2019090207">
+	href="${rootPath}/resources/css/album.css?ver=2019090303">
+	<link rel="stylesheet" type="text/css"
+	href="${rootPath}/resources/css/common.css?ver=2019090301">
+	
 </head>
 <body>
 	<%@ include file="/WEB-INF/views/include/include-header.jsp"%>
-	<h1>실시간 순위</h1>
+	<div class="bla"></div>
+	<h1 class="movie_sort">실시간 순위</h1>
 	<div class="movie_sort">
 		<span><a href="${path}/sort?sort=booking">예매순</a></span>
 		<span>|</span>
@@ -75,5 +80,19 @@
 		</c:forEach>
 
 	</article>
+	<script type="text/javascript">
+		$(function() {
+			var sort = "${sort}";
+			
+			if(sort == "booking") {
+				$('div.movie_sort > span:eq(0)').css('color','crimson').css('font-weight','bold');
+			} else if(sort == "score") {
+				$('div.movie_sort > span:eq(2)').css('color','crimson').css('font-weight','bold');
+			} else if(sort == "date") {
+				$('div.movie_sort > span:eq(4)').css('color','crimson').css('font-weight','bold');
+			}
+		})
+	</script>
+	<script type="text/javascript" src="${path}/resources/js/header.js"></script>
 </body>
 </html>

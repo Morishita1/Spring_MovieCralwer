@@ -7,6 +7,19 @@ article.grid-container {
 	
 }
 
+div.bla {
+	margin-top: 50px;
+}
+
+.movie_sort{
+	text-align: center;
+	
+}
+div.movie_sort a {
+	text-decoration: none;
+	color:inherit;
+}
+
 div.rank {
 	display: flex;
 }
