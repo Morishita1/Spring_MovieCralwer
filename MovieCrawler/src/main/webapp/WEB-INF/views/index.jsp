@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ include file="include/include.jsp"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<c:set var="rootPath" value="${pageContext.request.contextPath}" />
+
 
 <!DOCTYPE html>
 
@@ -12,11 +12,11 @@
 <title>Insert title here</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <link rel="stylesheet" type="text/css"
-	href="${rootPath}/resources/css/main.css?ver=2019090301">
+	href="${path}/resources/css/main.css?ver=2019090302">
 <link rel="stylesheet" type="text/css"
-	href="${rootPath}/resources/css/album.css?ver=2019090303">
+	href="${path}/resources/css/album.css?ver=2019090305">
 	<link rel="stylesheet" type="text/css"
-	href="${rootPath}/resources/css/common.css?ver=2019090301">
+	href="${path}/resources/css/common.css?ver=2019090301">
 	
 </head>
 <body>
@@ -33,11 +33,11 @@
 	<article class="grid-container">
 	
 
-		<c:forEach items="${rankList}" var="one">
+		<c:forEach items="${rankList}" var="one" varStatus="status">
 
 			<div class="bz-card">
 
-				<div class="bz-card-content">${one.rank}위</div>
+				<div class="bz-card-content">${status.count}위</div>
 
 				<div class="movie-card">
 					<img src="${one.imgsrc}">

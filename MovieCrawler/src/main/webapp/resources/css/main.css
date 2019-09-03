@@ -5,10 +5,10 @@
     
 }
 
-body {
-	width:1525px;
-	height:800px;
-	margin: 0 auto;
+body ,html{
+	width:100%;
+	height:100%;
+	margin: 0;
 	padding: 0;
 }
 header {
@@ -24,18 +24,20 @@ header h2 {
 }
 
 nav.main {
-	width:1525px;
+	
 	position: fixed;
 	top: 0;
 }
 
 nav {
-	
+	width:80%;
     margin:0;
     padding:0;
     background-color: #f0fff0;
     color:#000000;
     box-sizing: border-box;
+    left: 10%;
+    right: 10%;
 }
 ul.main-menu {
 	

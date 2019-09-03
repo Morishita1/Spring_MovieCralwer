@@ -1,10 +1,10 @@
 @charset "UTF-8";
 
 article.grid-container {
+	width:80%;
 	display: grid;
 	grid-template-columns: repeat(3, 1fr);
-	margin-top: 10px;
-	
+	margin: 0 auto;
 }
 
 div.bla {
@@ -13,7 +13,7 @@ div.bla {
 
 .movie_sort{
 	text-align: center;
-	
+	margin-bottom: 10px;
 }
 div.movie_sort a {
 	text-decoration: none;

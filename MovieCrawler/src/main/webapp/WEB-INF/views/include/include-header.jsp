@@ -10,16 +10,16 @@
 <button id="topBtn" class="sideBtn"><i class="fas fa-arrow-up"></i></button>
 	<nav class="main">
 		<ul class="main-menu">
-			<li><a href="${rootPath}/">홈</a></li>
-			<li><a href="${rootPath}/memo">게시판</a></li>
+			<li><a href="${path}/">홈</a></li>
+			<li><a href="${path}/board/list">커뮤니티</a></li>
 
 			<c:if test="${empty USER}">
-				<li><a href="${rootPath}/member/login">로그인</a></li>
-				<li><a href="${rootPath}/member/join">회원가입</a></li>
+				<li><a href="${path}/member/login">로그인</a></li>
+				<li><a href="${path}/member/join">회원가입</a></li>
 			</c:if>
 
 			<c:if test="${!empty USER}">
-				<li><a href="${rootPath}/member/logout">${USER.m_email}</a></li>
+				<li><a href="${path}/member/logout">${USER.m_email}</a></li>
 			</c:if>
 		</ul>
 	</nav>
