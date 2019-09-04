@@ -45,12 +45,26 @@ tr {
     border:1px solid #ccc;
     text-align: center;
 }
+td {
+	  border:1px solid #ccc;
+}
+
+td.td-1 {
+	table-layout: fixed;
+	width: 50px;
+}
 
 div.table {
     position: relative;
     top: 25px;
     display: flex;
-    
+    z-index: 999;
+    width: 300px;
+}
+
+div.table a {
+	text-decoration: none;
+	color:inherit;
 }
 
 div.input {
@@ -63,5 +77,6 @@ div.input {
 }
 
 .button {
+	display:flex;
     text-align: center;
 }
