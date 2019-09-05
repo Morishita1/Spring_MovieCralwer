@@ -15,6 +15,6 @@ public interface BoardDAO {
 	// 게시글 조회시 필요한 메서드(페이지네이션)
 	
 	public List<BoardDTO> listAll(HashMap<String, Object> option); // 게시글 목록 츌룍
-	public int countArticle(); // 레코드 갯수 계산
+	public int countArticle(String search_option, String keyword); // 레코드 갯수 계산
 	
 }

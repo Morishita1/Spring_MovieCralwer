@@ -44,14 +44,17 @@ public class BoardDAOImpl implements BoardDAO {
 
 	@Override
 	public List<BoardDTO> listAll(HashMap<String, Object> option) {
-		
+	option.put("keyword","%"+option.get("keyword")+"%");	
 	
 		return sqlSession.selectList("board.listAll",option);
 	}
 
 	@Override
-	public int countArticle() {
-		return sqlSession.selectOne("board.countArticle");
+	public int countArticle(String search_option, String keyword) {
+		Map<String, String> map =new HashMap<>();
+		map.put("search_option", search_option);
+		map.put("keyword","%"+ keyword +"%");
+		return sqlSession.selectOne("board.countArticle",map);
 	}
 
 }
