@@ -44,3 +44,30 @@ COMMIT;
 SELECT
     *
 FROM tbl_board;
+
+
+-- 회원 테이블
+
+DROP TABLE tbl_member;
+CREATE TABLE tbl_member(
+    userid VARCHAR2(200),
+    passwd VARCHAR2(100) NOT NULL,
+    name VARCHAR2(100) UNIQUE NOT NULL,
+    join_date DATE DEFAULT SYSDATE
+ );
+
+ALTER TABLE tbl_member
+ADD CONSTRAINT pk_member PRIMARY KEY(userid);
+
+INSERT INTO tbl_member(userid, passwd, name)
+VALUES('admin','1234','관리자');
+INSERT INTO tbl_member(userid, passwd, name)
+VALUES('aaaa@naver.com','1234','최초롱');
+INSERT INTO tbl_member(userid, passwd, name)
+VALUES('bbbb@naver.com','1234','임꺽정');
+
+COMMIT;
+
+SELECT
+    *
+FROM tbl_member;
