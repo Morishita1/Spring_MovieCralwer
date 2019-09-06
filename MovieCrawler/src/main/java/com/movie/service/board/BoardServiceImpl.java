@@ -37,18 +37,20 @@ public class BoardServiceImpl implements BoardService {
 
 	@Override
 	public BoardDTO read(int bno) {
-		// TODO Auto-generated method stub
-		return null;
+		// 게시판에서 게시글 1건(상세게시글)을 조회
+		return bDao.read(bno);
 	}
 
 	@Override
 	public List<BoardDTO> listAll(HashMap<String, Object> option) {
-
+		// 게시판에 게시글 목록을 조회
 		return bDao.listAll(option);
 	}
 
 	@Override
 	public int countArticle(String search_option, String keyword) {
+		// 게시판 페이지네이션 작업을 위해
+		// 게시글 전체 Count 수를 계산
 		return bDao.countArticle(search_option, keyword);
 	}
 

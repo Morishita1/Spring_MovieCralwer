@@ -8,7 +8,7 @@
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" type="text/css"
-	href="${path}/resources/css/main.css?ver=2019090302">
+	href="${path}/resources/css/main.css?ver=2019090304">
 	<link rel="stylesheet" type="text/css"
 	href="${path}/resources/css/album.css?ver=2019090303">
 <link rel="stylesheet" type="text/css"
@@ -70,10 +70,10 @@
 				<td>
 				<c:choose>
 						<c:when test="${today == regdate}">
-							${bDTO.title} <span class="new">new</span>
+							<a href="${path}/board/view?bno=${bDTO.bno}">${bDTO.title}</a> <span class="new">new</span>
 						</c:when>
 						<c:otherwise>
-							${bDTO.title}
+							<a href="${path}/board/view?bno=${bDTO.bno}">${bDTO.title}</a>
 						</c:otherwise>
 					</c:choose>
 				</td>

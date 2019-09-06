@@ -1,11 +1,15 @@
 package com.movie.controller.board;
 
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
+
 import java.util.HashMap;
 import java.util.List;
 
 import javax.inject.Inject;
 
+import org.jfree.util.Log;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -15,6 +19,9 @@ import com.movie.domain.board.BoardDTO;
 import com.movie.service.board.BoardService;
 import com.movie.service.board.Pager;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Controller
 @RequestMapping("board/*")
 public class BoardController {
@@ -63,5 +70,15 @@ public class BoardController {
 		return mav;
 	}
 	
+	@GetMapping("view")
+	public String view(int bno, Model model) {
+		// 가방
+		// 값을 한개만 담고 싶다 => 변수
+		// 값을 여러개해서 1줄을 담고 싶다 => DTO
+		// 값을 여러 줄 담고 싶다 => List
+		BoardDTO bDto = bService.read(bno);
+		model.addAttribute("one",bDto);
+		return "board/view";
+	}
 	
 }

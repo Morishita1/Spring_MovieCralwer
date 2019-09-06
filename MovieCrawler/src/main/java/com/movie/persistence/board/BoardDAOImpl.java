@@ -38,8 +38,9 @@ public class BoardDAOImpl implements BoardDAO {
 
 	@Override
 	public BoardDTO read(int bno) {
-		// TODO Auto-generated method stub
-		return null;
+		// selectOne : 1줄
+		// selectList : 여러줄
+		return sqlSession.selectOne("read",bno);
 	}
 
 	@Override
