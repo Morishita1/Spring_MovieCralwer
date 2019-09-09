@@ -32,4 +32,10 @@ public class MemberController {
 		
 		return flag;
 	}
+	
+	@PostMapping(value = "logout")
+	@ResponseBody
+	public void logout(HttpSession session) {
+		mService.logOut(session);
+	}
 }

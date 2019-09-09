@@ -73,7 +73,8 @@
 			</c:when>
 
 			<c:otherwise>
-				<li><a href="#" id="logout" class="a-menu">로그아웃</a></li>
+				<li><a class="a-menu">${name}님</a></li>
+				<li><a href="#" id="logout_btn" class="a-menu">로그아웃</a></li>
 			</c:otherwise>
 		</c:choose>
 	</ul>
@@ -160,6 +161,20 @@
          })
          
       })
-
+		
+      $('#logout_btn').click(function() {
+		$.ajax({
+			url: "${path}/member/logout",
+			type: "POST",
+			async: true,
+			success: function() {
+				location.reload();
+			},
+			error:function() {
+				alert("System Error");
+			}
+		})
+	})
+      
 	})
 </script>

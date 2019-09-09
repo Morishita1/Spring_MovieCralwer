@@ -28,7 +28,8 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public void logOut(HttpSession session) {
-		// TODO Auto-generated method stub
+		// 로그아웃, 세션을 초기화
+		session.invalidate();
 		
 	}
 

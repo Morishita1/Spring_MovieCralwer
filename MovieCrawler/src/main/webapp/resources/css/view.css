@@ -28,3 +28,11 @@ th.th-1 {
 	table-layout: fixed;
 	width: 10%;
 }
+
+.button-de {
+	display: none;
+}
+
+.button-up {
+	display: none;
+}

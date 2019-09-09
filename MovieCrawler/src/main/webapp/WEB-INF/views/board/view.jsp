@@ -13,7 +13,7 @@
 <link rel="stylesheet" type="text/css"
 	href="${path}/resources/css/common.css?ver=2019090502">
 <link rel="stylesheet" type="text/css"
-	href="${path}/resources/css/view.css?ver=2019090506">
+	href="${path}/resources/css/view.css?ver=20190909">
 <title>Insert title here</title>
 </head>
 <body>
@@ -28,7 +28,10 @@
 				<th class="th-1">제목</th>
 				<td colspan=3>${one.title}</td>
 			</tr>
-			<fmt:formatDate value="${one.regdate}" pattern="yyyy-MM-dd" var="regdate"/>
+			<jsp:useBean id="now" class="java.util.Date" />
+			<fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="today" />
+			<fmt:formatDate value="${one.regdate}" pattern="yyyy-MM-dd"
+				var="regdate" />
 			<tr>
 				<th>작성일</th>
 				<td>${regdate}</td>
@@ -48,9 +51,49 @@
 		</table>
 		<div>
 			<button>게시판 목록</button>
-			<button>삭제</button>
-			<button>수정</button>
+			<button class="button-de">삭제</button>
+			<button class="button-up">수정</button>
+		</div>
+	</div>
+	<div id="reply_wrap">
+		<div id="commentList">
+			<div>등록된 댓글이 없습니다</div>
+			<div>
+				<table>
+					<tr>
+						<td>작성자</td>
+						<td>작성일</td>
+					</tr>
+					<tr>
+						<td>내용</td>
+					</tr>
+				</table>
+			</div>
+			<div>
+				<a>로그인하시면 댓글을 등록할수 있습니다</a>
+			</div>
+			<div>
+				<table>
+					<tr>
+						<td>작성자</td>
+						<td>작성일</td>
+					</tr>
+				</table>
+				<input>
+				<div>
+				<button>등록</button>
+				</div>
+			</div>
 		</div>
 	</div>
 </body>
+<script>
+	$(function() {
+
+		if ("${one.writer}" == "${sessionScope.name}") {
+			$(".button-de").css('display', 'inline');
+			$(".button-up").css('display', 'inline');
+		}
+	});
+</script>
 </html>
