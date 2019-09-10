@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.movie.domain.movie.MovieDTO;
+import com.movie.service.cinema.CinemaService;
 import com.movie.service.movie.MovieService;
 
 @Controller
@@ -20,8 +21,12 @@ public class IndexController {
 	@Inject
 	MovieService mSercice;
 	
+	@Inject
+	CinemaService cSercice;
+	
 	@RequestMapping("/")
 	public String index(Model model) throws IOException {
+		
 		
 		// 4. 수집한 데이터 View단으로 전송
 		String sort = "booking";

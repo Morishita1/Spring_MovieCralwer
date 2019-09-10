@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cinema">
+ <insert id="movie" parameterType="com.movie.domain.cinema.CinemaDTO">
+ 	INSERT INTO tbl_cinema
+		VALUES(#{ciseq}, #{title}, #{score}, #{text}, #{writer}, #{opdate})
+ </insert>
+
+
+</mapper>

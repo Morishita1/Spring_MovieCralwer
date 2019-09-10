@@ -57,6 +57,11 @@ td.td-1 {
 td.td-2 {
 	table-layout: fixed;
 	width: 50%;
+	
+}
+td.td-2 a{
+	text-decoration: none;
+	color: inherit;
 }
 td.td-3 {
 	table-layout: fixed;

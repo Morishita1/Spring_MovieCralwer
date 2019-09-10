@@ -13,7 +13,7 @@
 <link rel="stylesheet" type="text/css"
 	href="${path}/resources/css/common.css?ver=2019090502">
 <link rel="stylesheet" type="text/css"
-	href="${path}/resources/css/view.css?ver=20190909">
+	href="${path}/resources/css/view.css?ver=201909100125">
 <title>Insert title here</title>
 </head>
 <body>
@@ -49,7 +49,7 @@
 			</tr>
 
 		</table>
-		<div>
+		<div class="button-tas">
 			<button>게시판 목록</button>
 			<button class="button-de">삭제</button>
 			<button class="button-up">수정</button>
@@ -57,33 +57,7 @@
 	</div>
 	<div id="reply_wrap">
 		<div id="commentList">
-			<div>등록된 댓글이 없습니다</div>
-			<div>
-				<table>
-					<tr>
-						<td>작성자</td>
-						<td>작성일</td>
-					</tr>
-					<tr>
-						<td>내용</td>
-					</tr>
-				</table>
-			</div>
-			<div>
-				<a>로그인하시면 댓글을 등록할수 있습니다</a>
-			</div>
-			<div>
-				<table>
-					<tr>
-						<td>작성자</td>
-						<td>작성일</td>
-					</tr>
-				</table>
-				<input>
-				<div>
-				<button>등록</button>
-				</div>
-			</div>
+			
 		</div>
 	</div>
 </body>
@@ -94,6 +68,23 @@
 			$(".button-de").css('display', 'inline');
 			$(".button-up").css('display', 'inline');
 		}
+		function comment_list() {
+			$.ajax({
+				type: "get",
+				url: "${path}/reply/list?bno=${one.bno}",
+				success: function(page) {
+					$("#commentList").html(page);
+				}
+			})
+		}
+		$(document).ready(function() {
+			comment_list();
+		})
+		/* View.jsp에서 commntlist의 태그, 이벤트 처리 할때 사용*/
+		$(document).on("click",".button-re-del", function() {
+			var rno ="";
+			alert("rno =" +rno);
+		})
 	});
 </script>
 </html>

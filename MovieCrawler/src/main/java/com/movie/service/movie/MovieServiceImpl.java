@@ -103,4 +103,5 @@ public class MovieServiceImpl implements MovieService {
 		return mDao.movieList(sort);
 	}
 
+	
 }

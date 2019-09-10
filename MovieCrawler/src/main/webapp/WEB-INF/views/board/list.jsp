@@ -12,7 +12,7 @@
 	<link rel="stylesheet" type="text/css"
 	href="${path}/resources/css/album.css?ver=2019090303">
 <link rel="stylesheet" type="text/css"
-	href="${path}/resources/css/common.css?ver=2019090502">
+	href="${path}/resources/css/common.css?ver=2019090501">
 <title>커뮤니티</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <style>
@@ -67,7 +67,7 @@
 			<fmt:formatDate value="${bDTO.regdate}" pattern="yyyy-MM-dd" var="regdate"/>
 			<tr>
 				<td>${bDTO.bno}</td>
-				<td>
+				<td class="td-2">
 				<c:choose>
 						<c:when test="${today == regdate}">
 							<a href="${path}/board/view?bno=${bDTO.bno}">${bDTO.title}</a> <span class="new">new</span>
