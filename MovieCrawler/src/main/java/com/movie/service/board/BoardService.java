@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import com.movie.domain.board.BoardDTO;
+import com.movie.domain.board.ReplyDTO;
 
 public interface BoardService {
 

@@ -5,6 +5,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.movie.domain.board.ReplyDTO;
 import com.movie.persistence.board.ReplyDAO;
@@ -21,16 +22,23 @@ public class ReplyServiceImpl implements ReplyService {
 		return rDao.list(bno);
 	}
 
+	@Transactional
 	@Override
 	public void write(ReplyDTO rDto) {
-		// TODO Auto-generated method stub
-		
+		rDao.write(rDto);
+		int yes= 1;
+		rDao.updateReplyCnt(rDto.getBno(), yes);
 	}
 
+	@Transactional
 	@Override
 	public void delete(ReplyDTO rDto) {
-		// TODO Auto-generated method stub
-		
+		rDao.delete(rDto);
+		int yes= -1;
+		rDao.updateReplyCnt(rDto.getBno(), yes);
 	}
+
+	
+	
 
 }

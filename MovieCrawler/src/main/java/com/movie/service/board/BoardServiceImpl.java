@@ -8,6 +8,7 @@ import javax.inject.Inject;
 import org.springframework.stereotype.Service;
 
 import com.movie.domain.board.BoardDTO;
+import com.movie.domain.board.ReplyDTO;
 import com.movie.persistence.board.BoardDAO;
 
 @Service
@@ -53,5 +54,7 @@ public class BoardServiceImpl implements BoardService {
 		// 게시글 전체 Count 수를 계산
 		return bDao.countArticle(search_option, keyword);
 	}
+
+	
 
 }

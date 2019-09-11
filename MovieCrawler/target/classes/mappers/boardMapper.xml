@@ -69,5 +69,27 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		WHERE bno = #{bno}
 	</select>
 	
+	<!-- 댓글수 +1 -->
+	<update id="reply">
+		UPDATE tbl_board
+		SET replycnt = replycnt +1
+		WHERE bno= #{bno}
+	</update>
+	<!-- 댓글수 -1 -->
+	<update id="replyde">
+		UPDATE tbl_board
+		SET replycnt = replycnt -1
+		WHERE bno= #{bno}
+	</update>
+	<update id="updateReplyCnt">
+		UPDATE tbl_board
+		<if test="yes == 1">
+		SET replycnt = replycnt +1
+		</if>
+		<if test="yes == -1">
+		SET replycnt = replycnt -1
+		</if>
+		WHERE bno= #{bno}
+	</update>
 </mapper>
 

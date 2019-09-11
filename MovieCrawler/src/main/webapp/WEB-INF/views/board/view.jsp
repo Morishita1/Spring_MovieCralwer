@@ -13,7 +13,7 @@
 <link rel="stylesheet" type="text/css"
 	href="${path}/resources/css/common.css?ver=2019090502">
 <link rel="stylesheet" type="text/css"
-	href="${path}/resources/css/view.css?ver=201909100125">
+	href="${path}/resources/css/view.css?ver=201909100128">
 <title>Insert title here</title>
 </head>
 <body>
@@ -68,6 +68,7 @@
 			$(".button-de").css('display', 'inline');
 			$(".button-up").css('display', 'inline');
 		}
+		
 		function comment_list() {
 			$.ajax({
 				type: "get",
@@ -82,8 +83,44 @@
 		})
 		/* View.jsp에서 commntlist의 태그, 이벤트 처리 할때 사용*/
 		$(document).on("click",".button-re-del", function() {
-			var rno ="";
-			alert("rno =" +rno);
+			var rno =$(this).attr("data_num");
+			var bno = '${one.bno}';
+			$.ajax({
+				url: "${path}/reply/delete",
+				data: "rno=" + rno + "&bno=" + bno,
+				success: function(result) {
+					comment_list();
+				},
+				error: function() {
+					alert("System Error!!!!");
+				}
+			})
+		})
+		$(document).on("click",".button-btn-wr", function() {
+			oEditors.getById["replyInsert"].exec("UPDATE_CONTENTS_FIELD", []);
+			var content = $("#replyInsert").val();
+			var text = content.replace(/[<][^>]*[>]/gi,"");
+			if(text == null || text == "") {
+				$(".error").css("display","inline");
+				$("#replyInsert").focus();
+				return false;
+			} else {
+				var bno ='${one.bno}';
+				$('#re_bno').val(bno);
+				$.ajax({
+					url: "${path}/reply/write",
+					type: "POST",
+					data: $("#frm_reply").serialize(),
+					contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+					success: function() {
+						comment_list();
+						$("#replyInsert").val("");
+					},
+					error: function() {
+						alert("System Error!!!")
+					}
+				})
+			}
 		})
 	});
 </script>
