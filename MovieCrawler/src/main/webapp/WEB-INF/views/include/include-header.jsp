@@ -104,7 +104,7 @@
 
 <script>
 	$(function() {
-
+	var uri ='${uri}';
 		$("#login").click(function() {
 
 			$("#modal-box").css('display', 'block')
@@ -147,7 +147,11 @@
             data: 'userid='+id+'&passwd='+pw,
             success:function(data){
                if(data == '1'){
-                  location.reload();
+            	   if(uri == "") {
+            		   location.reload();   
+            	   } else {
+            		   location.href=uri;
+					}
                } else if(data == '-1'){
                   $('input.userid').focus();
                   $('.err_msg').text('회원 아이디 또는 비밀번호가 일치하지 않습니다').css('visibility','visible');

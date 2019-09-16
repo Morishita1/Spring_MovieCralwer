@@ -2,6 +2,9 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ include file="../include/include.jsp"%>
+<%
+	String referer = request.getHeader("referer");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,7 +16,7 @@
 <link rel="stylesheet" type="text/css"
 	href="${path}/resources/css/common.css?ver=2019090502">
 <link rel="stylesheet" type="text/css"
-	href="${path}/resources/css/view.css?ver=201909100128">
+	href="${path}/resources/css/view.css?ver=201909100110">
 <title>Insert title here</title>
 </head>
 <body>
@@ -122,6 +125,8 @@
 				})
 			}
 		})
+		
 	});
+	
 </script>
 </html>

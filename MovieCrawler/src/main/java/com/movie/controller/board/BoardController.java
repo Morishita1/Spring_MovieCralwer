@@ -4,12 +4,15 @@ import java.util.HashMap;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.movie.domain.board.BoardDTO;
@@ -68,14 +71,27 @@ public class BoardController {
 	}
 	
 	@GetMapping("view")
-	public String view(int bno, Model model) {
+	public String view(int bno, Model model, HttpSession session) {
 		// 가방
 		// 값을 한개만 담고 싶다 => 변수
 		// 값을 여러개해서 1줄을 담고 싶다 => DTO
 		// 값을 여러 줄 담고 싶다 => List
-		BoardDTO bDto = bService.read(bno);
+		BoardDTO bDto = bService.read(bno, session);
 		model.addAttribute("one",bDto);
 		return "board/view";
+	}
+	
+	@GetMapping("write")
+	public String write() {
+		
+		return "board/write";
+	}
+	
+	@PostMapping("write")
+	public void write(BoardDTO bDto, HttpSession session) {
+		String name =(String) session.getAttribute("name");
+		bDto.setWriter(name);
+		bService.write(bDto);
 	}
 	
 }

@@ -2,6 +2,9 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ include file="../include/include.jsp"%>
+<%
+	String message= request.getParameter("message");
+%>
 
 <!DOCTYPE html>
 <html>
@@ -12,7 +15,7 @@
 	<link rel="stylesheet" type="text/css"
 	href="${path}/resources/css/album.css?ver=2019090303">
 <link rel="stylesheet" type="text/css"
-	href="${path}/resources/css/common.css?ver=2019090501">
+	href="${path}/resources/css/common.css?ver=20190916">
 <title>커뮤니티</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <style>
@@ -125,12 +128,17 @@
 			</ul>
 		</div>
 		<div class="button-input">
-		<button>게시글 등록</button>
+		<button class="button-in">게시글 등록</button>
 		<button id="re">처음으로</button>
 		</div>
 		
 	</div>
 	<script type="text/javascript">
+	var msg = "${message}";
+	if(msg == 'nologin') {
+		$("#modal-box").css('display', 'block');
+		$('.err_msg').text('로그인해주세요').css('visibility','visible');
+	}
 		$(function() {
 			var sort_option = "${map.sort_option}";
 			
@@ -158,7 +166,15 @@
 			$('#re').click(function() {
 				location.href="${path}/board/list";
 			});
+			$('.button-in').click(function() {
+				location.href="${path}/board/write";
+			});
 		});
+		window.onpageshow = function(event) {
+			if(event.persisted || (window.performance && window.performance.navigation.type == 2)) {
+				location.reload();
+			}
+		}
 	</script>
 </body>
 </html>

@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Service;
 
@@ -20,7 +21,7 @@ public class BoardServiceImpl implements BoardService {
 	
 	@Override
 	public void write(BoardDTO bDto) {
-		// TODO Auto-generated method stub
+		bDao.write(bDto);
 		
 	}
 
@@ -37,9 +38,28 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public BoardDTO read(int bno) {
+	public BoardDTO read(int bno, HttpSession session) {
+		long update_time = 0;
+		if(session.getAttribute("update_time_"+bno) != null) {
+			// 최근에 조회수를 올린 시간
+			update_time= (long)session.getAttribute("update_time_"+bno);
+		}
+		// 현재 시간
+		long current_time = System.currentTimeMillis();
+		
+		if(current_time - update_time > 24*60*60*1000) {
+			// 해당 게시글의 조회수 +1
+			bDao.increaseCnt(bno);
+			
+			// 조회수를 증가한 시간 session에 저장
+			session.setAttribute("update_time_"+bno, current_time);
+		}
+		
 		// 게시판에서 게시글 1건(상세게시글)을 조회
+	
 		return bDao.read(bno);
+		
+		
 	}
 
 	@Override

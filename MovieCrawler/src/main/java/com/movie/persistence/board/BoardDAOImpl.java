@@ -20,8 +20,7 @@ public class BoardDAOImpl implements BoardDAO {
 	
 	@Override
 	public void write(BoardDTO bDto) {
-		// TODO Auto-generated method stub
-		
+		sqlSession.insert("board.write",bDto);
 	}
 
 	@Override
@@ -56,6 +55,12 @@ public class BoardDAOImpl implements BoardDAO {
 		map.put("search_option", search_option);
 		map.put("keyword","%"+ keyword +"%");
 		return sqlSession.selectOne("board.countArticle",map);
+	}
+
+	@Override
+	public void increaseCnt(int bno) {
+		sqlSession.update("board.increaseCnt",bno);
+		
 	}
 
 }

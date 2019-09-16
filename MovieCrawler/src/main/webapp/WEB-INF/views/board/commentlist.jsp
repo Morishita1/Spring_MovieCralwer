@@ -16,8 +16,7 @@
 			<c:forEach items="${replyList}" var="replyview">
 				<div id="reply-con" class="body-1">
 					<table>
-						<jsp:useBean id="now" class="java.util.Date" />
-						<fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="today" />
+
 						<fmt:formatDate value="${replyview.regdate}" pattern="yyyy-MM-dd"
 							var="regdate" />
 						<tr>
@@ -31,9 +30,9 @@
 						</tr>
 					</table>
 					<c:if test="${sessionScope.name == replyview.writer}">
-					<div class="button-btn-re-de">
-						<button class="button-re-del" data_num="${replyview.rno}">삭제</button>
-					</div>
+						<div class="button-btn-re-de">
+							<button class="button-re-del" data_num="${replyview.rno}">삭제</button>
+						</div>
 					</c:if>
 				</div>
 
@@ -50,11 +49,14 @@
 
 	<div id="reply-input" class="body-1">
 		<form action="" method="POST" id="frm_reply">
+			<jsp:useBean id="now" class="java.util.Date" />
+			<fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="today" />
 			<div class="re">
 				<div class="re-le">${sessionScope.name}님</div>
 				<div class="re-ri">${today}</div>
 			</div>
-			<textarea name="content" id="replyInsert" class="input-re" placeholder="댓글을 입력해 주세요"></textarea>
+			<textarea name="content" id="replyInsert" class="input-re"
+				placeholder="댓글을 입력해 주세요"></textarea>
 			<script type="text/javascript"
 				src="${path}/resources/smarteditor/js/service/HuskyEZCreator.js"
 				charset="utf-8"></script>
