@@ -18,6 +18,46 @@
 <link rel="stylesheet" type="text/css"
 	href="${path}/resources/css/view.css?ver=201909100110">
 <title>Insert title here</title>
+<style>
+#modal-delete {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(0, 0, 0, 0.5);
+	z-index: 1000;
+	display: none;
+}
+
+.modal-body-delete {
+	width: 400px;
+	height: 150px;
+	border: 2px solid blue;
+	margin: 100px auto 0 auto;
+	border-radius: 5px;
+	background-color: #ccc;
+}
+
+.modal-header-delete {
+	background-color: black;
+	color: white;
+	font-size: 30px;
+	text-align: center;
+	margin-bottom: 30px;
+}
+.modal-button-delete {
+	text-align: center;
+}
+.modal-div {
+margin-bottom: 20px;
+}
+.modal-button-no, .modal-button-yes {
+	width:100px;
+	height: 30px;
+}
+
+</style>
 </head>
 <body>
 	<%@ include file="../include/include-header.jsp"%>
@@ -54,8 +94,8 @@
 		</table>
 		<div class="button-tas">
 			<button>게시판 목록</button>
-			<button class="button-de">삭제</button>
 			<button class="button-up">수정</button>
+			<button class="button-de">삭제</button>
 		</div>
 	</div>
 	<div id="reply_wrap">
@@ -64,9 +104,27 @@
 		</div>
 	</div>
 </body>
+<div id="modal-delete">
+	<div class="modal-body-delete">
+	<div class="modal-header-delete">게시글 삭제</div>
+	<div class="modal-div">정말 게시글을 삭제하시겠습니까?</div>
+	<div class="modal-button-delete">
+	<button class="modal-button-no">아니오</button><button class="modal-button-yes">예</button>
+	</div>
+	</div>
+</div>
 <script>
 	$(function() {
 
+		$(".button-de").click(function() {
+			$("#modal-delete").css('display', 'block')
+		})
+		$(".modal-button-no").click(function() {
+			$("#modal-delete").css('display', 'none')
+		})
+		$(".modal-button-yes").click(function() {
+			location.href="${path}/board/delete?bno=${one.bno}";
+		})
 		if ("${one.writer}" == "${sessionScope.name}") {
 			$(".button-de").css('display', 'inline');
 			$(".button-up").css('display', 'inline');
@@ -124,6 +182,10 @@
 					}
 				})
 			}
+		})
+		
+		$(document).on("click", ".button-up", function() {
+			location.href="${path}/board/write?bno=${one.bno}";
 		})
 		
 	});

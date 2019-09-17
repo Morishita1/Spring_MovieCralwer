@@ -76,22 +76,34 @@ public class BoardController {
 		// 값을 한개만 담고 싶다 => 변수
 		// 값을 여러개해서 1줄을 담고 싶다 => DTO
 		// 값을 여러 줄 담고 싶다 => List
-		BoardDTO bDto = bService.read(bno, session);
+		bService.increaseCnt(bno, session); // 조회수 증가 처리
+		BoardDTO bDto = bService.read(bno); // 상세게시글 출력
 		model.addAttribute("one",bDto);
 		return "board/view";
 	}
 	
 	@GetMapping("write")
-	public String write() {
-		
+	public String write(@RequestParam(defaultValue = "0") int bno, Model model) {
+		if(bno != 0) { // 게시글 수정
+			model.addAttribute("one",bService.read(bno));
+		}
 		return "board/write";
 	}
 	
 	@PostMapping("write")
-	public void write(BoardDTO bDto, HttpSession session) {
+	public String write(BoardDTO bDto, HttpSession session) {
 		String name =(String) session.getAttribute("name");
 		bDto.setWriter(name);
+		log.info(">>>>>>>>>>>>>>>>"+bDto.getBno());
 		bService.write(bDto);
+		return "redirect:view?bno="+bDto.getBno();
 	}
+	
+	@GetMapping("delete")
+	public String delete(int bno) {
+		bService.delete(bno);
+		return "redirect:list";
+	}
+	
 	
 }

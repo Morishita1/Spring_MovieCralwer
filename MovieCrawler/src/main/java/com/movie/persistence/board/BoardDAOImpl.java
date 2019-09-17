@@ -25,13 +25,12 @@ public class BoardDAOImpl implements BoardDAO {
 
 	@Override
 	public void update(BoardDTO bDto) {
-		// TODO Auto-generated method stub
-		
+		sqlSession.update("board.update",bDto);
 	}
 
 	@Override
 	public void delete(int bno) {
-		// TODO Auto-generated method stub
+		sqlSession.delete("board.delete",bno);
 		
 	}
 

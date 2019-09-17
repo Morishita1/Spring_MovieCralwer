@@ -14,6 +14,7 @@
 <link rel="stylesheet" type="text/css"
 	href="${path}/resources/css/view.css?ver=201909100120">
 <title>Insert title here</title>
+
 </head>
 <body>
 <%@ include file="../include/include-header.jsp"%>
@@ -25,7 +26,7 @@
 		<table>
 			<tr>
 				<th class="th-1">제목</th>
-				<td colspan=3><input name="title" class="title-input"></td>
+				<td colspan=3><input name="title" class="title-input" value="${one.title}"></td>
 			</tr>
 			<tr>
 				<th class="th-1">작성자</th>
@@ -33,7 +34,7 @@
 			</tr>
 			<tr>
 				<td class="content" colspan=4>
-				<textarea name="content" id="content" class="input-re"></textarea>
+				<textarea name="content" id="content" class="input-re">${one.content}</textarea>
 				<script type="text/javascript"
 				src="${path}/resources/smarteditor/js/service/HuskyEZCreator.js"
 				charset="utf-8"></script>
@@ -61,6 +62,8 @@
 		</div>
 	</div>
 </body>
+
+
 <script type="text/javascript">
  $(function() {
 	$(".button-btn-in").click(function() {
@@ -72,19 +75,17 @@
 			$("#content").focus();
 			return false;
 		} else {
-			$.ajax({
-				url: "${path}/board/write",
-				type: "POST",
-				data: $("#frm_content").serialize(),
-				contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
-				success: function() {
-					location.href="${path}/board/list"
-					$("#content").val("");
-				},
-				error: function() {
-					alert("System Error!!!")
-				}
-			})
+			$("#frm_content").submit();
+		}
+	})
+	$(document).ready(function() {
+		var bno = '${one.bno}';
+		if(bno == '') {
+		} else {
+			$(".button-btn-in").text("수정");
+			var str='';
+			str +="<input type='hidden' name='bno' value='" + bno + "'>";
+			$("#frm_content").append(str);
 		}
 	})
 })
