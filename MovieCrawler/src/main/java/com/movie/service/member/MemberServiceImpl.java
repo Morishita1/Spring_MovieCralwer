@@ -39,4 +39,10 @@ public class MemberServiceImpl implements MemberService {
 		return mDao.viewMember(userid);
 	}
 
+	@Override
+	public int idCheck(String id) {
+		
+		return mDao.idCheck(id);
+	}
+
 }

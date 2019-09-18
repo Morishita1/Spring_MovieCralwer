@@ -69,7 +69,7 @@
 		<c:choose>
 			<c:when test="${empty sessionScope.name}">
 				<li><a href="#" id="login" class="a-menu">로그인</a></li>
-				<li><a href="#">회원가입</a></li>
+				<li><a href="#" id="join">회원가입</a></li>
 			</c:when>
 
 			<c:otherwise>
@@ -106,11 +106,10 @@
 	$(function() {
 	var uri ='${uri}';
 		$("#login").click(function() {
-
 			$("#modal-box").css('display', 'block')
 		})
 		$("#join").click(function() {
-			$("#modal-join").css('display', 'block')
+			location.href="${path}/member/write";
 		})
 		$("#modal-close").click(function() {
 			$("#modal-box").css("display", "none")

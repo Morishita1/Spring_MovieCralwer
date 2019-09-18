@@ -4,6 +4,7 @@ import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -38,4 +39,17 @@ public class MemberController {
 	public void logout(HttpSession session) {
 		mService.logOut(session);
 	}
+	
+	@GetMapping(value = "write")
+	public String write() {
+		return "member/write";
+	}
+	
+	@ResponseBody
+	@PostMapping(value = "idCheck")
+	public int idCheck(String id) {
+		log.info("AJAX ID 중복체크 : " +id);
+		return mService.idCheck(id);
+	}
+	
 }
