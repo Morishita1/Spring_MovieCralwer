@@ -108,22 +108,27 @@ display: none;
 		<div class="errcheck"><span>공백</span></div>
 		</div>
 		<div class="join-ta">
-			<input class="input-join" placeholder="ID">@<input class="input-URL" placeholder="URL">
+			<input id="email_id" class="input-join" placeholder="ID">@<input id="email_url" class="input-URL" placeholder="URL">
 			<div class="errcheck"><span>공백</span></div>
 		</div>
 		<div class="join-ta">
-			<select class="join-select">
-				<option>직접입력</option>
-				<option>naver.com</option>
+			<select id="selmail" class="join-select">
+				<option value="direct">직접입력</option>
+				<option value="naver.com">naver.com</option>
+				<option value="daum.net">daum.net</option>
+				<option value="gmail.com">gmail.com</option>
+				<option value="nate.com">nate.com</option>
 			</select>
 
 		</div>
 		<div class="join-taa">
-			<input class="join-addr-code" type="text" id="sample6_postcode" placeholder="우편번호">
-			<input class="join-addr-button" type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
-			<input class="join-addr-address" type="text" id="sample6_address" placeholder="주소"><br>
+			<input class="join-addr-code addrbtn" type="text" id="sample6_postcode" placeholder="우편번호" readonly="readonly">
+			<input class="join-addr-button" id="addr_btn" type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
+			<input class="join-addr-address addrbtn" type="text" id="sample6_address" placeholder="주소" readonly="readonly"><br>
 			<input class="join-addr-detailAddress" type="text" id="sample6_detailAddress" placeholder="상세주소">
+			<div class="errcheck"><span>공백</span></div>
 		</div>
+		
 		<div class="join-ta">
 			<button>취소</button>
 			<button>회원가입</button>
@@ -132,6 +137,7 @@ display: none;
 	<script type="text/javascript" src="${path}/resources/js/validation.js"></script>
 	<script>
 	$(function() {
+		// id값 유효성 체크
 		$("#inputid").keyup(function() {
 			var memId = $.trim($(this).val());
 			var checkResult = joinValidate.checkId(memId);
@@ -146,6 +152,30 @@ display: none;
 			}
 			return false;
 		});
+		// 이메일 selectBox 설정
+		$("#selmail").change(function() {
+			var url = $(this).val();
+			if( url == "direct") {
+				$('#email_url').val('');
+				$('#email_url').removeAttr("readonly");
+				$('#email_url').blur();
+				$('#email_url').focus();
+				
+			} else {
+				$('#email_url').val(url);
+				$('#email_url').prop('readonly', true);
+				$('#email_url').blur();
+			}
+		})
+		
+		$('.addrbtn').click(function() {
+			var zipcode = $('.addrbtn').eq(0).val();
+			var addr = $('.addrbtn').eq(1).val();
+			if(zipcode == "" || addr == "") {
+				$('#addr_btn').click();
+			}
+		})
+		// 비밀번호 유효성 체크
 		$('#inputpw').keyup(function() {
 			var memPw = $.trim($(this).val());
 			var memRpw = $.trim($('#inputrpw').val());
@@ -169,6 +199,7 @@ display: none;
 				}
 			return false;
 		})
+		// 비밀번호 확인 유효성 체크
 		$("#inputrpw").keyup(function() {
 			var memPw = $.trim($('#inputpw').val());
 			var memRpw = $.trim($(this).val());
@@ -182,7 +213,9 @@ display: none;
 				return true;
 				}
 			return false;
-			})	
+			})
+			
+		// 이름 유효성 체크
 		$("#inputname").keyup(function() {
 			var name =$.trim($(this).val());
 			var checkResult =joinValidate.checkName(name);
@@ -196,7 +229,8 @@ display: none;
 			}
 			return false;
 		})
-		$("#inputphone").blur(function() {
+		// 핸드폰 번호 유효성 체크
+		$("#inputphone").keyup(function() {
 			var phone =$.trim($(this).val());
 			var checkResult =joinValidate.checkPhone(phone);
 			if(checkResult.code != 0) {
@@ -208,10 +242,42 @@ display: none;
 			}
 			return false;
 		})
+		// email 유효성 체크
+		$('#email_id').blur(function() {
+			var email = $.trim($(this).val());
+			var url = $.trim($('#email_url').val());
+			var checkResult =joinValidate.checkEmail(email,url);
+			if(checkResult.code != 0) {
+				$("#email_url").next().text(checkResult.desc).css('display', 'block').css('color','#FF3636');
+				return false;
+			} else {
+				$("#email_url").next().text(checkResult.desc).css('display', 'block').css('color','#0000FF');
+				return true;
+			}
+			return false;
+		}) 
+		$("#email_url").blur(function() {
+			var email = $.trim($('#email_id').val());
+			var url = $.trim($('#email_url').val());
+			var checkResult =joinValidate.checkUrl(email,url);
+			if(checkResult.code != 0) {
+				$("#email_url").next().text(checkResult.desc).css('display', 'block').css('color','#FF3636');
+				return false;
+			} else {
+				$("#email_url").next().text(checkResult.desc).css('display', 'block').css('color','#0000FF');
+				return true;
+			}
+			return false;
+		})
+		$('#sample6_detailAddress').blur(function() {
+			var dAddr = $.trim($(this).val());
+			if(dAddr == "" || dAddr.length == 0) {
+				$("#sample6_detailAddress").next().text('필수 정보입니다.').css('display', 'block').css('color','#FF3636');
+			}
+		})
 	})
 	
 	
-	// id값 유효성 체크
 	
 	
 	</script>
