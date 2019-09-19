@@ -18,4 +18,5 @@ public interface MemberService {
 	// 비밀번호 수정
 	// 현재비밀번호 체크
 	public int idCheck(String id);
+	public void write(MemberDTO mDto);
 }

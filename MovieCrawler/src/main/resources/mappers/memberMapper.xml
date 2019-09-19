@@ -19,4 +19,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	SELECT COUNT(userid) FROM tbl_member
 	WHERE userid = #{id}
 	</select>
+	<insert id="write" parameterType="com.movie.domain.member.MemberDTO">
+	INSERT INTO tbl_member(userid,passwd,name,phone,email,zipcode,addr1,addr2)
+	VALUES(#{userid},#{passwd},#{name},#{phone},#{email},#{zipcode},#{addr1},#{addr2})
+	
+	</insert>
 </mapper>

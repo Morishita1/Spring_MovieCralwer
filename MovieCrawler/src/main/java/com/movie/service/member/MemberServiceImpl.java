@@ -45,4 +45,10 @@ public class MemberServiceImpl implements MemberService {
 		return mDao.idCheck(id);
 	}
 
+	@Override
+	public void write(MemberDTO mDto) {
+		mDao.write(mDto);
+		
+	}
+
 }

@@ -32,4 +32,10 @@ public class MemberDAOImpl implements MemberDAO {
 		return sqlSession.selectOne("member.idCheck",id);
 	}
 
+	@Override
+	public void write(MemberDTO mDto) {
+		sqlSession.insert("member.write",mDto);
+		
+	}
+
 }

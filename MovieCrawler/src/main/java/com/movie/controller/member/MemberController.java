@@ -45,6 +45,13 @@ public class MemberController {
 		return "member/write";
 	}
 	
+	@PostMapping(value = "write")
+	public String write(MemberDTO mDto) {
+		
+		mService.write(mDto);
+		return "redirect:/";
+	}
+	
 	@ResponseBody
 	@PostMapping(value = "idCheck")
 	public int idCheck(String id) {
