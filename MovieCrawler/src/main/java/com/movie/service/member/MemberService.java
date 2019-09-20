@@ -1,5 +1,7 @@
 package com.movie.service.member;
 
+import java.util.Map;
+
 import javax.servlet.http.HttpSession;
 
 import com.movie.domain.member.MemberDTO;
@@ -19,4 +21,7 @@ public interface MemberService {
 	// 현재비밀번호 체크
 	public int idCheck(String id);
 	public void write(MemberDTO mDto);
+	// AJAX : 현재 PW 체크
+	public int pwCheck(Map<String, Object> map);
+	public void delete(String id, HttpSession session);
 }

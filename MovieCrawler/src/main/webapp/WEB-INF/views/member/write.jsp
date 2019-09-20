@@ -245,7 +245,7 @@ display: none;
 					$(this).next().text(checkResult.desc).css('display', 'block').css('color','#FF3636');
 			}  else {
 					if((memRpw != "") || (memRpw.length != 0)) {
-						$("inputrpw").next().text(checkResult.desc).css('display', 'block').css('color','#0000FF');
+						$(this).next().text(checkResult.desc).css('display', 'block').css('color','#0000FF');
 					} else {
 						$(this).next().text(checkResult.desc).css('display', 'block').css('color','#0000FF');
 					}

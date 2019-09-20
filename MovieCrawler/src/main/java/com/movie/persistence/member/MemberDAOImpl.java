@@ -1,5 +1,7 @@
 package com.movie.persistence.member;
 
+import java.util.Map;
+
 import javax.inject.Inject;
 
 import org.apache.ibatis.session.SqlSession;
@@ -37,5 +39,17 @@ public class MemberDAOImpl implements MemberDAO {
 		sqlSession.insert("member.write",mDto);
 		
 	}
+
+	@Override
+	public int pwCheck(Map<String, Object> map) {
+		return sqlSession.selectOne("member.pwCheck",map);
+	}
+
+	@Override
+	public int delete(String id) {
+		// TODO Auto-generated method stub
+		return sqlSession.delete("member.delete",id);
+	}
+
 
 }

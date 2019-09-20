@@ -1,5 +1,8 @@
 package com.movie.controller.member;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
@@ -57,6 +60,29 @@ public class MemberController {
 	public int idCheck(String id) {
 		log.info("AJAX ID 중복체크 : " +id);
 		return mService.idCheck(id);
+	}
+	
+	// 회원탈퇴 View
+	@GetMapping(value = "delete")
+	public String delete() {
+		
+		return "member/delete";
+	}
+	
+	// 회원탈퇴 Action
+	@PostMapping("delete")
+	public String delete(String id, HttpSession session) {
+		mService.delete(id, session);
+		return "redirect:/";
+	}
+	// AJAX: 현재 비밀번호 체크 (사용: 회원 탈퇴)
+	@ResponseBody
+	@PostMapping("pwcheck")
+	public int pwCheck(String id, String pw) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("id",id);
+		map.put("pw",pw);
+		return mService.pwCheck(map);
 	}
 	
 }

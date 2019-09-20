@@ -1,5 +1,7 @@
 package com.movie.service.member;
 
+import java.util.Map;
+
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
@@ -50,5 +52,22 @@ public class MemberServiceImpl implements MemberService {
 		mDao.write(mDto);
 		
 	}
+
+	@Override
+	public int pwCheck(Map<String, Object> map) {
+		return mDao.pwCheck(map);
+	}
+
+	@Override
+	public void delete(String id, HttpSession session) {
+		int result = mDao.delete(id);
+		
+		if(result >=1) {
+			session.invalidate();
+		}
+		
+	}
+
+	
 
 }

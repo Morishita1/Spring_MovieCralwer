@@ -54,6 +54,21 @@
 .err_msg {
 	color: red;
 }
+.drop-down {
+	display: block;
+}
+
+.dr-cn {
+	display: none;
+	position: absolute;
+	background-color: green;
+	min-width: 160px;
+	z-index: 10;
+}
+
+.drop-down:hover div.dr-cn {
+	display: block;
+}
 </style>
 </head>
 <script src="https://kit.fontawesome.com/8b002b7edc.js"></script>
@@ -75,6 +90,13 @@
 			<c:otherwise>
 				<li><a class="a-menu">${name}님</a></li>
 				<li><a href="#" id="logout_btn" class="a-menu">로그아웃</a></li>
+				<li class="drop-down">
+				<a class="op-btn" id="op-btn" >마이페이지</a>
+				<div class="dr-cn">
+					<a href="#">회원수정</a>
+					<a href="${path}/member/delete">회원탈퇴</a>
+				</div>
+				</li>
 			</c:otherwise>
 		</c:choose>
 	</ul>
