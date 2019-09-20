@@ -51,7 +51,7 @@ public class MemberController {
 	
 	@PostMapping(value = "write")
 	public String write(MemberDTO mDto) {
-		
+		System.out.println(mDto);
 		mService.write(mDto);
 		return "redirect:/";
 	}

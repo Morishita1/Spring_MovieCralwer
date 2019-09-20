@@ -18,9 +18,9 @@ public class MemberDTO {
 	private String userid;
 	private String passwd;
 	private String name;
-	private int phone;
+	private String phone;
 	private String email;
-	private int zipcode;
+	private String zipcode;
 	private String addr1;
 	private String addr2;
 	private Date join_date;

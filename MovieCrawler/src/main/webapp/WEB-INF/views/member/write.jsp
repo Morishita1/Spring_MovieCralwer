@@ -361,6 +361,7 @@ display: none;
 		// 핸드폰 번호 유효성 체크
 		$("#inputphone").keyup(function() {
 			var phone =$.trim($(this).val());
+			
 			var checkResult =joinValidate.checkPhone(phone);
 			if(checkResult.code != 0) {
 				$(this).next().text(checkResult.desc).css('display', 'block').css('color','#FF3636');
