@@ -1,12 +1,27 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="../include/include.jsp"%>
-<c:if test="${sessionScope.userid != null}">
+
+
+<c:choose>
+	<c:when test="${one.userid == null}">
+		<c:if test="${sessionScope.userid != null}">
 	<script>
 		alert("로그아웃 후 사용해주세요.");
 		location.href="${path}/";
 	</script>
 </c:if>
+	</c:when>
+	<c:otherwise>
+	<c:if test="${sessionScope.userid == null}">
+	<script>
+		alert("로그아웃 후 사용해주세요.");
+		location.href="${path}/";
+	</script>
+</c:if>
+	</c:otherwise>
+</c:choose>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -93,10 +108,10 @@ display: none;
 <body>
 	<%@ include file="../include/include-header.jsp"%>
 	<div class="bla"></div>
-	<h1>회원가입</h1>
+	<h1 id="join_title">회원가입</h1>
 	<div class="join-main">
-	<form action="" method="POST" id="frm_mem">
-		<div class="join-ta">
+	<form method="POST" id="frm_mem">
+		<div id="inputid-join" class="join-ta">
 			<label>아이디</label> <input id="inputid" name="userid" placeholder="아이디를 입력해주세요">
 			<div class="errcheck"><span>공백</span></div>
 		</div>
@@ -109,12 +124,12 @@ display: none;
 			<div class="errcheck"><span>공백</span></div>
 		</div>
 		<div class="join-ta">
-			<label>이름</label> <input id="inputname" name="name" placeholder="이름을 입력해주세요">
+			<label>이름</label> <input id="inputname" name="name" placeholder="이름을 입력해주세요" value="${one.name}">
 			<div class="errcheck"><span>공백</span></div>
 		</div>
 
 		<div class="join-ta">
-		<input class="join-te" id="inputphone" name="phone" placeholder="핸드폰번호(-없이 입력하세요.)">
+		<input class="join-te" id="inputphone" name="phone" placeholder="핸드폰번호(-없이 입력하세요.)" value="${one.phone}">
 		<div class="errcheck"><span>공백</span></div>
 		</div>
 		<div class="join-ta">
@@ -132,10 +147,10 @@ display: none;
 
 		</div>
 		<div class="join-taa">
-			<input class="join-addr-code addrbtn" name="zipcode" type="text" id="sample6_postcode" placeholder="우편번호" readonly="readonly">
+			<input class="join-addr-code addrbtn" name="zipcode" type="text" id="sample6_postcode" placeholder="우편번호" readonly="readonly" value="${one.zipcode}">
 			<input class="join-addr-button" id="addr_btn" type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
-			<input class="join-addr-address addrbtn" name="addr1" type="text" id="sample6_address" placeholder="주소" readonly="readonly"><br>
-			<input class="join-addr-detailAddress" name="addr2" type="text" id="sample6_detailAddress" placeholder="상세주소">
+			<input class="join-addr-address addrbtn" name="addr1" type="text" id="sample6_address" placeholder="주소" readonly="readonly" value="${one.addr1}"><br>
+			<input class="join-addr-detailAddress" name="addr2" type="text" id="sample6_detailAddress" placeholder="상세주소" value="${one.addr2}">
 			<div class="errcheck"><span>공백</span></div>
 		</div>
 		
@@ -158,6 +173,30 @@ display: none;
 		var check_phone = false;
 		var check_email = false;
 		var check_post = false;
+		var id = '${one.userid}';
+		$(document).ready(function() {
+			
+			
+			if(id != '') { // 회원 수정
+				check_name = true;
+				check_phone = true;
+				check_email = true;
+				check_post = true;
+				email = '${one.email}';
+				index = email.indexOf('@');
+				emailid = email.substring(0,index);
+				emailurl = email.substring(index+1);
+				$('#email_id').val(emailid);
+				$('#email_url').val(emailurl);
+				$('#join_title').text('회원 수정');
+				$('#inputid-join').remove();
+				$('.btn_agree').text('수정하기');
+				check_id = true;
+				
+			}
+		})
+		
+		
 		// id값 유효성 체크
 		$("#inputid").keyup(function() {
 			var memId = $.trim($(this).val());
@@ -229,25 +268,45 @@ display: none;
 				$('#sample6_postcode').focus();
 				$('.err_check_msg').text('필수정보를 입력해주세요').css('display', 'block').css('color','#FF3636');
 			}
+			if(id != '') {
+				$('#frm_mem').action="${path}/member/update";
+			} else {
+				$('#frm_mem').action="${path}/member/write";
+			}
+			
 			$('#frm_mem').submit();
 		})
 		// 비밀번호 유효성 체크
-		$('#inputpw').blur(function() {
+		$('#inputpw').keyup(function() {
 			var memPw = $.trim($(this).val());
 			var memRpw = $.trim($('#inputrpw').val());
+			
+			if(id != '') {
+				if(ajaxPwCheck(id, memPw)) {
+					$('#inputpw').next().text('현재 비밀번호 입니다').css('display', 'block').css('color','#FF3636');
+					$("#inputrpw").next().text('');
+					check_pw= false;
+					return false;
+				} else {
+					$("#inputpw").next().text('');
+				}
+			}
+			
+			
 			var checkResult = joinValidate.checkPw(memPw,memRpw);
+			console.log(checkResult.code)
 			if(checkResult.code == 4) {
 				$("#inputrpw").next().text(checkResult.desc).css('display', 'block').css('color','#FF3636');
 				check_pw = false;
 				return false;
 			}
 			if(checkResult.code != 0) { // 경고메시지 출력
-					$(this).next().text(checkResult.desc).css('display', 'block').css('color','#FF3636');
+					$('#inputpw').next().text(checkResult.desc).css('display', 'block').css('color','#FF3636');
 			}  else {
 					if((memRpw != "") || (memRpw.length != 0)) {
-						$(this).next().text(checkResult.desc).css('display', 'block').css('color','#0000FF');
+						$('#inputpw').next().text(checkResult.desc).css('display', 'block').css('color','#0000FF');
 					} else {
-						$(this).next().text(checkResult.desc).css('display', 'block').css('color','#0000FF');
+						$('#inputpw').next().text(checkResult.desc).css('display', 'block').css('color','#0000FF');
 					}
 					check_pw = true;
 					check_rpw = true;
@@ -265,10 +324,14 @@ display: none;
 			
 			if(checkResult.code != 0) { // 경고메시지 출력
 				$(this).next().text(checkResult.desc).css('display', 'block').css('color','#FF3636');
+			
 				check_rpw = false;
 			return false;
 			}	else {
 				$(this).next().text(checkResult.desc).css('display', 'block').css('color','#0000FF');
+				if($('#inputpw').next().text() == '현재 비밀번호 입니다') {
+					$('#inputrpw').next().text('');
+				}
 				check_rpw = true;
 				check_pw = true;
 				return true;

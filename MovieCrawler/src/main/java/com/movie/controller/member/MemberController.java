@@ -7,6 +7,7 @@ import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -75,6 +76,27 @@ public class MemberController {
 		mService.delete(id, session);
 		return "redirect:/";
 	}
+	// 회원 수정 View
+	@GetMapping("update")
+	public String update(Model model, HttpSession session) {
+		String userid = (String)session.getAttribute("userid");
+		if(userid == null) {
+			return "redirect:/";
+		} else {
+			model.addAttribute("one",mService.viewMember(userid));
+			
+			return "member/write";
+		}
+		
+	}
+	
+	@PostMapping("update")
+	public String update(MemberDTO mDto, HttpSession session) {
+		mService.update(mDto, session);
+		return "redirect:/";
+	}
+	
+	
 	// AJAX: 현재 비밀번호 체크 (사용: 회원 탈퇴)
 	@ResponseBody
 	@PostMapping("pwcheck")
@@ -84,5 +106,6 @@ public class MemberController {
 		map.put("pw",pw);
 		return mService.pwCheck(map);
 	}
+	
 	
 }

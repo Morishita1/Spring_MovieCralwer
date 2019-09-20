@@ -68,6 +68,20 @@ public class MemberServiceImpl implements MemberService {
 		
 	}
 
+	@Override
+	public void update(MemberDTO mDto, HttpSession session) {
+		// 1. 수정
+		String userid=(String)session.getAttribute("userid");
+		mDto.setUserid(userid);
+		int result = mDao.update(mDto);
+		// 2. session 최신값으로 변경
+		if(result > 0 ) {
+			session.setAttribute("name", mDto.getName());
+		}
+		
+	}
+
+	
 	
 
 }

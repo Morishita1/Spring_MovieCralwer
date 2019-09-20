@@ -93,7 +93,7 @@
 				<li class="drop-down">
 				<a class="op-btn" id="op-btn" >마이페이지</a>
 				<div class="dr-cn">
-					<a href="#">회원수정</a>
+					<a href="${path}/member/update">회원수정</a>
 					<a href="${path}/member/delete">회원탈퇴</a>
 				</div>
 				</li>
