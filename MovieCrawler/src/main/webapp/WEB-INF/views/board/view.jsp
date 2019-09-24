@@ -16,7 +16,7 @@
 <link rel="stylesheet" type="text/css"
 	href="${path}/resources/css/common.css?ver=2019090502">
 <link rel="stylesheet" type="text/css"
-	href="${path}/resources/css/view.css?ver=201909100110">
+	href="${path}/resources/css/view.css?ver=201909100111">
 <title>Insert title here</title>
 <style>
 #modal-delete {
@@ -88,7 +88,7 @@ margin-bottom: 20px;
 				<td>${one.viewcnt}</td>
 			</tr>
 			<tr>
-				<td class="content" colspan=4>${one.content}</td>
+				<td class="content-view" colspan=4>${one.content}</td>
 			</tr>
 
 		</table>
