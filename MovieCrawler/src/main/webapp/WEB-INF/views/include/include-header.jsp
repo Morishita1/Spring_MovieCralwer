@@ -125,8 +125,8 @@
 </div>
 
 <script>
+var uri ='${uri}';
 	$(function() {
-	var uri ='${uri}';
 		$("#login").click(function() {
 			$("#modal-box").css('display', 'block')
 		})
@@ -140,6 +140,18 @@
 			$(".userid").val("");
 			$(".password").val("");
 		})
+		$(document).ready(function() {
+         $(".userid").keydown(function(key) {
+            if (key.keyCode == 13) {
+               $(".password").focus();
+            }
+         });
+         $(".password").keydown(function(key) {
+            if (key.keyCode == 13) {
+               $(".btn-login").click();
+            }
+         });
+      });
 		$(".btn-login").click(function(){
          // 유효성체크:id,pw null값체크 및 공백 체크
          var id = $.trim($("input.userid").val())

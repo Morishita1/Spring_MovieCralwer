@@ -19,12 +19,13 @@
 <title>커뮤니티</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <style>
-	.page li{
+	.page li {
 		list-style: none;
 		margin:0 10px;
 	}
-	.page li a{
+	.page li a {
 		text-decoration: none;
+		color: black;
 	}
 </style>
 </head>
@@ -140,8 +141,14 @@
 		$('.err_msg').text('로그인해주세요').css('visibility','visible');
 	}
 		$(function() {
+			$(document).ready(function() {
+		         $("#search_board").keydown(function(key) {
+		            if (key.keyCode == 13) {
+		               $("#search_btn").click();
+		            }
+		         });
+		      });
 			var sort_option = "${map.sort_option}";
-			
 			if(sort_option == "new") {
 				$('div.table > span:eq(0)').css('color','crimson').css('font-weight','bold');
 			} else if(sort_option == "view") {
@@ -149,7 +156,6 @@
 			} else if(sort_option == "reply") {
 				$('div.table > span:eq(4)').css('color','crimson').css('font-weight','bold');
 			}
-			
 			$('#search_btn').click(function() {
 				var search_option = $('#selsearch').val();
 				var keyword = $.trim($('#search_board').val());

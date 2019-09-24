@@ -23,12 +23,19 @@ public class Scheduler {
 	@Inject
 	CinemaService cSercice;
 	
+	// 영화정보 수집
 	@Scheduled(cron = "0 0 12 * * *")
 	public void movieCollect() throws IOException {
 		
 			mService.ticketRank();
-			cSercice.movie();
+//			cSercice.movie();
 		
 	}
+	//영화평점 수집
+	@Scheduled(cron = "0 50 12 * * *")
+	public void replyCollect() throws IOException {
+		mService.replyMovie();
+	}
+	
 	
 }

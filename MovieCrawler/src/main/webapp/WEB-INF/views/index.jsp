@@ -10,6 +10,13 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style>
+.bz-at {
+text-decoration: none;
+color: black;
+}
+
+</style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <link rel="stylesheet" type="text/css"
 	href="${path}/resources/css/main.css?ver=2019090302">
@@ -34,11 +41,10 @@
 	
 
 		<c:forEach items="${rankList}" var="one" varStatus="status">
-
+			
 			<div class="bz-card">
-
+			<a class="bz-at" href="${path}/movie/detail?code=${one.daumcode}">
 				<div class="bz-card-content">${status.count}위</div>
-
 				<div class="movie-card">
 					<img src="${one.imgsrc}">
 					<div class="movie-card-ty">
@@ -71,12 +77,10 @@
 							<div>네이버 : ${one.navercode} 다음 : ${one.daumcode}</div>
 						</div>
 					</div>
-
 				</div>
-
 				<div class="bz-card-content">${one.movie}</div>
+			</a>
 			</div>
-
 		</c:forEach>
 
 	</article>
