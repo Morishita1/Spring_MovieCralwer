@@ -1,5 +1,6 @@
 
 -- 커뮤니티에서 사용할 테이블 생성
+DROP TABLE tbl_reply;
 DROP TABLE tbl_board;
 CREATE TABLE tbl_board(
     bno NUMBER,
@@ -8,7 +9,10 @@ CREATE TABLE tbl_board(
     writer VARCHAR2(30) NOT NULL,
     viewcnt NUMBER DEFAULT 0,
     replycnt NUMBER DEFAULT 0,
-    regdate DATE DEFAULT SYSDATE
+    regdate DATE DEFAULT SYSDATE,
+    ref NUMBER NOT NULL,
+    re_step NUMBER NOT NULL,
+    re_level NUMBER NOT NULL
 );
 
 -- PRIMARY KEY 부여
@@ -22,28 +26,46 @@ START WITH 1
 INCREMENT BY 1;
 
 -- 커뮤니티에 더미데이터 입력
-INSERT INTO tbl_board(bno,title, content, writer)
-VALUES(seq_board.NEXTVAL,'안녕하세요1','가나','user1');
+INSERT INTO tbl_board(bno,title, content, writer,ref, re_step, re_level)
+VALUES(seq_board.NEXTVAL,'안녕하세요1','가나','user1',seq_board.CURRVAL,1,0);
 
-INSERT INTO tbl_board(bno,title, content, writer)
-VALUES(seq_board.NEXTVAL,'안녕하세요2','다라','user2');
+INSERT INTO tbl_board(bno,title, content, writer,ref, re_step, re_level)
+VALUES(seq_board.NEXTVAL,'안녕하세요2','다라','user2',seq_board.CURRVAL,1,0);
 
-INSERT INTO tbl_board(bno,title, content, writer)
-VALUES(seq_board.NEXTVAL,'안녕하세요3','마바','user3');
+INSERT INTO tbl_board(bno,title, content, writer,ref, re_step, re_level)
+VALUES(seq_board.NEXTVAL,'안녕하세요3','마바','user3',seq_board.CURRVAL,1,0);
 
-INSERT INTO tbl_board(bno,title, content, writer)
-VALUES(seq_board.NEXTVAL,'안녕하세요4','가나','user4');
+INSERT INTO tbl_board(bno,title, content, writer,ref, re_step, re_level)
+VALUES(seq_board.NEXTVAL,'안녕하세요4','가나','user4',seq_board.CURRVAL,1,0);
 
-INSERT INTO tbl_board(bno,title, content, writer)
-VALUES(seq_board.NEXTVAL,'안녕하세요5','다라','user5');
+INSERT INTO tbl_board(bno,title, content, writer,ref, re_step, re_level)
+VALUES(seq_board.NEXTVAL,'안녕하세요5','다라','user5',seq_board.CURRVAL,1,0);
 
-INSERT INTO tbl_board(bno,title, content, writer)
-VALUES(seq_board.NEXTVAL,'안녕하세요6','마바','user6');
+INSERT INTO tbl_board(bno,title, content, writer,ref, re_step, re_level)
+VALUES(seq_board.NEXTVAL,'안녕하세요6','마바','user6',seq_board.CURRVAL,1,0);
+
+INSERT INTO tbl_board(bno,title, content, writer,ref, re_step, re_level)
+VALUES(seq_board.NEXTVAL,'안녕하세요7','마바','user6',seq_board.CURRVAL,1,0);
+INSERT INTO tbl_board(bno,title, content, writer,ref, re_step, re_level)
+VALUES(seq_board.NEXTVAL,'안녕하세요8','마바','user6',seq_board.CURRVAL,1,0);
+INSERT INTO tbl_board(bno,title, content, writer,ref, re_step, re_level)
+VALUES(seq_board.NEXTVAL,'안녕하세요9','마바','user6',seq_board.CURRVAL,1,0);
+INSERT INTO tbl_board(bno,title, content, writer,ref, re_step, re_level)
+VALUES(seq_board.NEXTVAL,'안녕하세요0','마바','user6',seq_board.CURRVAL,1,0);
+INSERT INTO tbl_board(bno,title, content, writer,ref, re_step, re_level)
+VALUES(seq_board.NEXTVAL,'안녕하세요11','마바','user6',seq_board.CURRVAL,1,0);
+INSERT INTO tbl_board(bno,title, content, writer,ref, re_step, re_level)
+VALUES(seq_board.NEXTVAL,'안녕하세요12','마바','user6',seq_board.CURRVAL,1,0);
+INSERT INTO tbl_board(bno,title, content, writer,ref, re_step, re_level)
+VALUES(seq_board.NEXTVAL,'안녕하세요12','마바','최초롱',seq_board.CURRVAL,1,0);
 COMMIT;
 
 SELECT
     *
 FROM tbl_board;
+
+DESC tbl_board;
+
 
 
 -- 회원 테이블
@@ -71,3 +93,132 @@ COMMIT;
 SELECT
     *
 FROM tbl_member;
+
+DROP TABLE tbl_cinema;
+CREATE TABLE tbl_cinema(
+    ciseq NUMBER,
+    title VARCHAR2(100),
+    score NUMBER,
+    text VARCHAR2(2000),
+    writer VARCHAR2(100),
+    opdate VARCHAR2(100)
+    );
+CREATE SEQUENCE seq_cinema
+START WITH 1
+INCREMENT BY 1;
+    
+COMMIT;
+
+SELECT
+    *
+FROM tbl_cinema;
+
+
+DESC tbl_cinema;
+
+
+
+DROP SEQUENCE seq_reply;
+
+CREATE TABLE tbl_reply(
+    rno NUMBER,
+    content VARCHAR2(2000) NOT NULL,
+    writer VARCHAR2(30) NOT NULL,
+    regdate DATE DEFAULT SYSDATE,
+    bno NUMBER NOT NULL
+);
+ALTER TABLE tbl_reply
+ADD CONSTRAINT pk_reply PRIMARY KEY(rno);
+
+ALTER TABLE tbl_reply
+ADD CONSTRAINT fk_reply_bno
+FOREIGN KEY(bno) REFERENCES tbl_board(bno)
+ON DELETE CASCADE;
+
+SELECT
+    *
+FROM tbl_reply;
+CREATE SEQUENCE seq_reply
+START WITH 1
+INCREMENT BY 1;
+
+TRUNCATE TABLE tbl_reply;
+INSERT INTO tbl_reply(rno, content, writer, bno) VALUES(seq_reply.NEXTVAL,'댓글입니다1','aaaa@naver.com',261);
+INSERT INTO tbl_reply(rno, content,writer, bno) VALUES(seq_reply.NEXTVAL,'댓글입니다2','aaaa@naver.com',261);
+INSERT INTO tbl_reply(rno, content,writer, bno) VALUES(seq_reply.NEXTVAL,'댓글입니다3','aaaa@naver.com',261);
+INSERT INTO tbl_reply(rno, content,writer, bno) VALUES(seq_reply.NEXTVAL,'댓글입니다4','aaaa@naver.com',261);
+INSERT INTO tbl_reply(rno, content,writer, bno) VALUES(seq_reply.NEXTVAL,'댓글입니다5','aaaa@naver.com',261);
+INSERT INTO tbl_reply(rno, content,writer, bno) VALUES(seq_reply.NEXTVAL,'댓글입니다6','aaaa@naver.com',261);
+INSERT INTO tbl_reply(rno, content,writer, bno) VALUES(seq_reply.NEXTVAL,'댓글입니다7','aaaa@naver.com',261);
+INSERT INTO tbl_reply(rno, content,writer, bno) VALUES(seq_reply.NEXTVAL,'댓글입니다8','aaaa@naver.com',261);
+INSERT INTO tbl_reply(rno, content, writer, bno) VALUES(seq_reply.NEXTVAL,'댓글입니다1','최초롱',261);
+INSERT INTO tbl_reply(rno, content, writer, bno) VALUES(seq_reply.NEXTVAL,'댓글입니다2','최초롱',261);
+INSERT INTO tbl_reply(rno, content, writer, bno) VALUES(seq_reply.NEXTVAL,'댓글입니다3','최초롱',261);
+INSERT INTO tbl_reply(rno, content, writer, bno) VALUES(seq_reply.NEXTVAL,'댓글입니다4','최초롱',261);
+INSERT INTO tbl_reply(rno, content, writer, bno) VALUES(seq_reply.NEXTVAL,'댓글입니다5','최초롱',261);
+INSERT INTO tbl_reply(rno, content, writer, bno) VALUES(seq_reply.NEXTVAL,'댓글입니다6','최초롱',261);
+INSERT INTO tbl_reply(rno, content, writer, bno) VALUES(seq_reply.NEXTVAL,'댓글입니다10','임꺽정',261);
+COMMIT;
+
+
+SELECT rno, bno, content, writer, r.regdate 
+FROM tbl_reply r, tbl_member m 
+WHERE r.writer = m.name AND bno = 261 ORDER BY rno;
+
+UPDATE tbl_board
+SET replycnt = 4
+WHERE bno = 261;
+
+UPDATE tbl_board
+SET viewcnt = viewcnt +1
+WHERE bno= 261;
+
+SELECT
+    *
+FROM tbl_board;
+
+COMMIT;
+
+SELECT
+    *
+FROM tbl_ems;
+
+
+UPDATE tbl_board
+SET title = '111',
+    content = '1234'
+    WHERE bno= 311;
+commit;
+
+
+
+
+
+-- 회원관련 테이블
+DROP TABLE tbl_member;
+CREATE TABLE tbl_member(
+    userid VARCHAR2(60),
+    passwd VARCHAR2(60) NOT NULL,
+    name VARCHAR2(30) NOT NULL,
+    phone VARCHAR2(30) NOT NULL,
+    email VARCHAR2(50) NOT NULL,
+    zipcode VARCHAR2(20) NOT NULL,
+    addr1 VARCHAR2(200) NOT NULL,
+    addr2 VARCHAR2(200) NOT NULL,
+    regdate DATE DEFAULT SYSDATE
+    );
+
+INSERT INTO tbl_member(userid,passwd,name,phone,email,zipcode,addr1,addr2) VALUES('admin','1234','관리자','01011111111','aaaa@naver.com','61237','광주 북구 경양로 145','3층');
+commit;
+
+SELECT
+    *
+FROM tbl_member;
+
+
+DESC tbl_movie;
+
+SELECT movie, daumcode
+FROM tbl_movie
+ORDER BY rank;
+
