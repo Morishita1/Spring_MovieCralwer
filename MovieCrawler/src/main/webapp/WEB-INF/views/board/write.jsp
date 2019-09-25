@@ -35,17 +35,7 @@
 			<tr>
 				<td class="content" colspan=4>
 				<textarea name="content" id="content" class="input-re">
-					<c:choose>
-						<c:when test="${flag == 'answer'}">
-						===================== 이전글 내용 =====================<br>
 						${one.content}
-						======================================================<br>
-						<br><br>
-						</c:when>
-						<c:otherwise>
-						${one.content}
-						</c:otherwise>
-					</c:choose>
 				</textarea>
 				<script type="text/javascript"
 				src="${path}/resources/smarteditor/js/service/HuskyEZCreator.js"

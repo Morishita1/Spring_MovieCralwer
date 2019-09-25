@@ -7,6 +7,7 @@ import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.movie.domain.board.BoardDTO;
 import com.movie.domain.board.ReplyDTO;
@@ -83,6 +84,7 @@ public class BoardServiceImpl implements BoardService {
 		
 	}
 
+	@Transactional
 	@Override
 	public void answer(BoardDTO bDto) {
 		// 답글의 순서 조정(정렬) : re_step +1

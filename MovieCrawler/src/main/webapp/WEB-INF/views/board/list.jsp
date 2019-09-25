@@ -15,7 +15,7 @@
 	<link rel="stylesheet" type="text/css"
 	href="${path}/resources/css/album.css?ver=2019090303">
 <link rel="stylesheet" type="text/css"
-	href="${path}/resources/css/common.css?ver=20190916">
+	href="${path}/resources/css/common.css?ver=2019091601">
 <title>커뮤니티</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <style>
