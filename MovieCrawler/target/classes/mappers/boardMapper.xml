@@ -44,13 +44,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		FROM tbl_board
 		<include refid="search" />
 		<if test="sort_option == 'new'">
-			ORDER BY bno DESC
+			ORDER BY ref DESC, re_step
 		</if>
 		<if test="sort_option == 'reply'">
-			ORDER BY replycnt DESC, bno DESC
+			ORDER BY replycnt DESC, ref DESC, re_step
 		</if>
 		<if test="sort_option == 'view'">
-			ORDER BY viewcnt DESC, bno DESC
+			ORDER BY viewcnt DESC, ref DESC, re_step
 		</if>
 		<include refid="paging_footer" />
 	</select>
@@ -106,10 +106,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		WHERE bno= #{bno}
 	</update>
 
+	<!-- 게시글 등록 -->
 	<insert id="write"
 		parameterType="com.movie.domain.board.BoardDTO">
-		INSERT INTO tbl_board(bno,title, content, writer)
-		VALUES(seq_board.NEXTVAL,#{title},#{content},#{writer})
+		INSERT INTO tbl_board(bno,title, content, writer, ref, re_step,re_level)
+		VALUES(seq_board.NEXTVAL,#{title},#{content},#{writer},seq_board.CURRVAL,1,0)
 		<selectKey keyProperty="bno" resultType="Integer"
 			order="AFTER">
 			SELECT seq_board.CURRVAL FROM dual
@@ -127,6 +128,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		DELETE FROM tbl_board
 		WHERE bno= #{bno}
 	</delete>
+	<!-- 답글 게시글 등록을 위한 re_step 수정 -->
+	<update id="updateStep" parameterType="com.movie.domain.board.BoardDTO">
+		UPDATE tbl_board
+		SET re_step = re_step + 1
+		WHERE ref = #{ref} AND re_step > #{re_step}
+	</update>
+	<!-- 답글 등록 -->
+	<insert id="answer" parameterType="com.movie.domain.board.BoardDTO">
+		INSERT INTO tbl_board(bno,title, content, writer, ref, re_step,re_level)
+		VALUES(seq_board.NEXTVAL,#{title},#{content},#{writer},#{ref},#{re_step},#{re_level})
+		<selectKey keyProperty="bno" resultType="Integer"
+			order="AFTER">
+			SELECT seq_board.CURRVAL FROM dual
+		</selectKey>
+	</insert>
 	
 </mapper>
 

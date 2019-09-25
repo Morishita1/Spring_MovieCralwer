@@ -94,6 +94,7 @@ margin-bottom: 20px;
 		</table>
 		<div class="button-tas">
 			<button>게시판 목록</button>
+			<button class="button-rep">답변</button>
 			<button class="button-up">수정</button>
 			<button class="button-de">삭제</button>
 		</div>
@@ -128,6 +129,9 @@ margin-bottom: 20px;
 		if ("${one.writer}" == "${sessionScope.name}") {
 			$(".button-de").css('display', 'inline');
 			$(".button-up").css('display', 'inline');
+		}
+		if ("${sessionScope.name}" == "") {
+			$(".button-rep").css('display','none');
 		}
 		
 		function comment_list() {
@@ -186,6 +190,9 @@ margin-bottom: 20px;
 		
 		$(document).on("click", ".button-up", function() {
 			location.href="${path}/board/write?bno=${one.bno}";
+		})
+		$(document).on("click", ".button-rep", function() {
+			location.href="${path}/board/answer?bno=${one.bno}";
 		})
 		
 	});

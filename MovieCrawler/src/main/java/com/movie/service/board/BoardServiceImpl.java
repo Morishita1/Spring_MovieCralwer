@@ -83,6 +83,17 @@ public class BoardServiceImpl implements BoardService {
 		
 	}
 
+	@Override
+	public void answer(BoardDTO bDto) {
+		// 답글의 순서 조정(정렬) : re_step +1
+		bDao.updateStep(bDto); // ref, re_step
+		// 답글 등록
+		bDto.setTitle("RE:" +bDto.getTitle());
+		bDto.setRe_step(bDto.getRe_step() +1);
+		bDto.setRe_level(bDto.getRe_level() +1);
+		bDao.answer(bDto);
+	}
+
 	
 
 }

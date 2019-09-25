@@ -22,7 +22,7 @@
 		<div class="bla"></div>
 
 		<h3>커뮤니티 게시판</h3>
-		<form action="" method="POST" id="frm_content">
+		<form method="POST" id="frm_content">
 		<table>
 			<tr>
 				<th class="th-1">제목</th>
@@ -34,7 +34,19 @@
 			</tr>
 			<tr>
 				<td class="content" colspan=4>
-				<textarea name="content" id="content" class="input-re">${one.content}</textarea>
+				<textarea name="content" id="content" class="input-re">
+					<c:choose>
+						<c:when test="${flag == 'answer'}">
+						===================== 이전글 내용 =====================<br>
+						${one.content}
+						======================================================<br>
+						<br><br>
+						</c:when>
+						<c:otherwise>
+						${one.content}
+						</c:otherwise>
+					</c:choose>
+				</textarea>
 				<script type="text/javascript"
 				src="${path}/resources/smarteditor/js/service/HuskyEZCreator.js"
 				charset="utf-8"></script>
@@ -75,18 +87,30 @@
 			$("#content").focus();
 			return false;
 		} else {
+			if('${flag}' == 'answer') {
+				$("#frm_content").action ="${path}/board/answer";
+			} else {
+				$("#frm_content").action="${path}/board/write";	
+			}
+			
 			$("#frm_content").submit();
 		}
 	})
 	$(document).ready(function() {
-		var bno = '${one.bno}';
-		if(bno == '') {
+		var flag='${flag}';
+		if(flag == "answer") { // 답글 페이지
+			$(".button-btn-in").text("답글 등록");
 		} else {
-			$(".button-btn-in").text("수정");
-			var str='';
-			str +="<input type='hidden' name='bno' value='" + bno + "'>";
-			$("#frm_content").append(str);
+			var bno = '${one.bno}';
+			if(bno == '') {
+			} else {
+				$(".button-btn-in").text("수정");
+				var str='';
+				str +="<input type='hidden' name='bno' value='" + bno + "'>";
+				$("#frm_content").append(str);
+			}
 		}
+		
 	})
 })
 

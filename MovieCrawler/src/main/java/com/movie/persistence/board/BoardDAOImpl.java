@@ -62,4 +62,16 @@ public class BoardDAOImpl implements BoardDAO {
 		
 	}
 
+	@Override
+	public void updateStep(BoardDTO bDto) {
+		sqlSession.update("board.updateStep",bDto);
+		
+	}
+
+	@Override
+	public void answer(BoardDTO bDto) {
+		sqlSession.insert("board.answer",bDto);
+		
+	}
+
 }
