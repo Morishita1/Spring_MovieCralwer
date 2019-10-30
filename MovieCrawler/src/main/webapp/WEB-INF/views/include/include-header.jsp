@@ -79,7 +79,7 @@
 </button>
 <nav class="main">
 	<ul class="main-menu">
-		<li><a href="${path}/">홈</a></li>
+		<li><a href="${path}/">MovieCrawler</a></li>
 		<li><a href="${path}/board/list">커뮤니티</a></li>
 		<c:choose>
 			<c:when test="${empty sessionScope.name}">
